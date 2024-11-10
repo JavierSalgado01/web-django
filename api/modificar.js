@@ -26,5 +26,5 @@ app.post("/update/:id", async (req, res) => {
 const PORT = process.env.PORT || 3003;
 
 app.listen(PORT, () => {
-    console.log(`servidor compilao en el puert ${PORT}, funcionando`);
+    console.log(`servidor compilado en el puerto ${PORT}, funcionando`);
 });
