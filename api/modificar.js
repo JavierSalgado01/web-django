@@ -11,12 +11,12 @@ admin.initializeApp({
 const app = express();
 app.use(express.json());
 
-app.post("/update/:id", async (req, res) => {
+app.put("/update/:id", async (req, res) => {
     try {
-        const { nombre, ubicacion, region, presupuesto, fecha_i, codigo, solicitante, estado, fecha_t  } = req.body;
+        const { nombre, ubicacion, region, presupuesto, fecha_i, codigo, solicitante, estado, fecha_t, descripcion  } = req.body;
         const { id } = req.params;
-        const proyectoRef = admin.firestore().collection('Proyecto').doc(id);
-        await proyectoRef.update({nombre, ubicacion, region, presupuesto, fecha_i, codigo, solicitante, estado, fecha_t });
+        const proyectoRef = admin.firestore().collection('Proyectos').doc(id);
+        await proyectoRef.update({nombre, ubicacion, region, presupuesto, fecha_i, codigo, solicitante, estado, fecha_t, descripcion });
         res.status(200).send('el documto se se actualizo');
     } catch (error) {
         res.status(500).send('error al actualizar: ' + error.message);
