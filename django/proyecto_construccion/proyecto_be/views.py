@@ -1,6 +1,13 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.template import Template, Context
+import requests
 
+def obtener_datos():
+    res = requests.get('http://127.0.0.1:3000/')
+    res.raise_for_status()
+    datos = res.json()
+    return datos
+    
+    
 def plantilla_html(request):
-    return render(request, 'index.html')
+    datos = obtener_datos()
+    return render(request, 'index.html', {'datos':datos})
