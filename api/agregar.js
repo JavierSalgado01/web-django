@@ -1,7 +1,7 @@
 const express = require('express')
 const admin = require('firebase-admin')
 
-const servicio = require('./final-be-iot-firebase-adminsdk-wakra-51b5387d94.json')
+const servicio = require('./final-be-iot-firebase-adminsdk-wakra-b82f3b9014.json')
 
 admin.initializeApp({
     credential: admin.credential.cert(servicio),
