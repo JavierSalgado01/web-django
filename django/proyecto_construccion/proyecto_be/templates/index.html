@@ -2,44 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <title>prueba 3-4</title>
+    <title>Gestion de proyectos</title>
 </head>
 <body>
-    <div class="container">
-        <h1 class="text-center">PROYECTOS</h1><br>
-            <ul>
-                <table>
-                    <tr>
-                        <th>NOMBRE</th>
-                        <th>DIRECCION</th>
-                        <th>REGION</th>
-                        <th>PRESUPUESTO</th>
-                        <th>FECHA DE INICIO</th>
-                        <th>CODIGO</th>
-                        <th>SOLICITANTE</th>
-                        <th>ESTADO</th>
-                        <th>FECHA DE TERMINO</th>
-                        <th>DESCRIPCION</th>
-                    </tr>
-                    {% if datos %}
-                        {% for i in datos %}
-                        <tr>
-                            <td><input type="text" value="{{ i.nombre }}"></td>
-                            <td><input type="text" value="{{ i.ubicacion }}"></td>
-                            <td><input type="text" value="{{ i.region }}"></td>
-                            <td><input type="text" value="{{ i.presupuesto }}"></td>
-                            <td><input type="text" value="{{ i.fecha_i }}"></td>
-                            <td><input type="text" value="{{ i.codigo }}"></td>
-                            <td><input type="text" value="{{ i.solicitante }}"></td>
-                            <td><input type="text" value="{{ i.estado }}"></td>
-                            <td><input type="text" value="{{ i.fecha_t }}"></td>
-                            <td><input type="text" value="{{ i.descripcion }}"></td>
-                        </tr>
-                        {% endfor %}
-                    {% endif %}
-                </table>
-            </ul>
-    </div>
-</body>
-</html>
+    <header>
+        <h1>Constructora</h1>
+    </header>
+    <section>
+        <h2>Crear proyecto</h2>
+        <form action="{% url 'insert' %}" method="POST">
+            {% csrf_token %}
+            <input type="text" name="nombre" placeholder="Nombre proyecto" required>
+            <input type="text" name="ubicacion" placeholder="Ubicacion" required>
+            <input type="text" name="region" placeholder="Region" required>
+            <input type="number" name="presupuesto" placeholder="Presupuesto" required>
+            <input type="text" name="solicitante" placeholder="Solicitante" required>
+            <input type="text" name="estado" placeholder="Estado" required>
+            <input type="date" name="fecha_i" required>
+            <input type="date" name="fecha_t" required> 
+            <input type="text" name="codigo" placeholder="Codigo" required>
+            <button type="submit">Agregar</button>
+        </form>
+    </section>    
+
+    <section>
+        <h2>Proyectos</h2>
+        <div>
+            {% for p in proyectos %}
+            <div>
+                <p><strong>Nombre:</strong> {{ p.nombre }}</p>
+                <p><strong>Ubicación:</strong> {{ p.ubicacion }}</p>
+                <p><strong>Región:</strong> {{ p.region }}</p>
+                <p><strong>Presupuesto:</strong> {{ p.presupuesto }}</p>
+                <p><strong>Solicitante:</strong> {{ p.solicitante }}</p>
+                <p><strong>Estado:</strong> {{ p.estado }}</p>
+                <p><strong>Fecha Inicio:</strong> {{ p.fecha_i }}</p>
+                <p><strong>Fecha Término:</strong> {{ p.fecha_t }}</p>
+                <p><strong>codigo:</strong> {{ p.codigo }}</p>
+                <a href="/detalle">Ver más</a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>

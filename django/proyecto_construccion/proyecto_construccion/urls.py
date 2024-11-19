@@ -20,5 +20,6 @@ from proyecto_be import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.plantilla_html, name='home'),
+    path('', views.gestionar, name='gestionar'),
+    path('insert', views.insert, name='insert')
 ]
