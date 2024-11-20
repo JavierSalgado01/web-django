@@ -11,14 +11,25 @@ admin.initializeApp({
 const app = express();
 app.use(express.json())
 
-app.post('/insert', async(req, res) =>{
-    try{
-        
+app.post('/insert', async (req, res) => {
+    try {
         const newProyectos = req.body;
-        const ref = await admin.firestore().collection('Proyectos').add(newProyectos);
-        res.status(201).json({id: ref.id});       
-    }catch(error){
-        res.status(500).send('Error al agregar un proyecto: ' + error.message);
+
+        if (!newProyectos.codigo) {
+            return res.status(400).send('El campo codigo es obligatorio');
+        }
+
+        const proyectoRef = admin.firestore().collection('Proyectos').doc(newProyectos.codigo);
+        const doc = await proyectoRef.get();
+
+        if (doc.exists) {
+            return res.status(400).send('el codigo ya existe en un proyecto');
+        }
+
+        await proyectoRef.set(newProyectos);
+        res.status(200).json({ id: newProyectos.codigo });
+    } catch (error) {
+        res.status(500).send('error al agregar un proyecto: ' + error.message);
     }
 });
 

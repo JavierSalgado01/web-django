@@ -11,15 +11,20 @@ admin.initializeApp({
 const app = express();
 app.use(express.json());
 
-app.put("/update/:id", async (req, res) => {
+app.put("/update/:codigo", async (req, res) => {
     try {
-        const { nombre, ubicacion, region, presupuesto, fecha_i, codigo, solicitante, estado, fecha_t, descripcion  } = req.body;
-        const { id } = req.params;
-        const proyectoRef = admin.firestore().collection('Proyectos').doc(id);
-        await proyectoRef.update({nombre, ubicacion, region, presupuesto, fecha_i, codigo, solicitante, estado, fecha_t, descripcion });
-        res.status(200).send('el documto se se actualizo');
+        const { nombre, ubicacion, region, presupuesto, fecha_i, solicitante, estado, fecha_t } = req.body;
+        const { codigo } = req.params;
+        const busca = await admin.firestore().collection('Proyectos').where('codigo', '==', codigo).get();
+        if (busca.empty) {
+            return res.status(404).send('no se encontro  proyecto con ese código'); 
+        }
+        const proyectoRef = busca.docs[0].ref;
+        await proyectoRef.update({
+            nombre, ubicacion, region, presupuesto, fecha_i, solicitante, estado, fecha_t});
+        res.status(200).send('el documento se actualizo correctamente');
     } catch (error) {
-        res.status(500).send('error al actualizar: ' + error.message);
+        res.status(500).send('Error al actualizar en el servidor: ' + error.message);
     }
 });
 
