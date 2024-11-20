@@ -21,5 +21,8 @@ from proyecto_be import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.gestionar, name='gestionar'),
-    path('insert', views.insert, name='insert')
+    path('insert', views.insert, name='insert'),
+    path('update', views.update, name='update'),
+    path('delete', views.delete, name='delete'),
+    path('search', views.search, name='search'),
 ]
