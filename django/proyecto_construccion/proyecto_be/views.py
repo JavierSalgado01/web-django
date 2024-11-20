@@ -20,7 +20,7 @@ def insert(request):
             respuesta = requests.post('http://127.0.0.1:3001/insert', json=datos)
 
             if respuesta.status_code == [200, 201]:
-                return render(request,'error.html')
+                return render(request,'error.html', {'error': respuesta.text})
             else:
                 return redirect('gestionar')
             
@@ -48,7 +48,7 @@ def update(request):
             if respuesta.status_code == 200:
                 return redirect('gestionar')
             else:
-                return render(request,'error.html')
+                return render(request,'error.html', {'error': respuesta.text})
             
         return render(request, 'index.html')
     
@@ -88,4 +88,4 @@ def search(request):
 def gestionar(request):
     res = requests.get('http://127.0.0.1:3000/')
     proyectos = res.json() if res.status_code == 200 else []
-    return render(request, 'index.html', {'proyectos':proyectos})
+    return render(request, 'index.html', {'proyectos':proyectos}, {'error': res.text})
