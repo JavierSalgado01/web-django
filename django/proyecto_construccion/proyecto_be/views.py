@@ -88,4 +88,7 @@ def search(request):
 def gestionar(request):
     res = requests.get('http://127.0.0.1:3000/')
     proyectos = res.json() if res.status_code == 200 else []
-    return render(request, 'index.html', {'proyectos':proyectos}, {'error': res.text})
+    vista = {'proyectos': proyectos}
+    if res.status_code != 200:
+        vista['error'] = res.text
+    return render(request, 'index.html', vista)
