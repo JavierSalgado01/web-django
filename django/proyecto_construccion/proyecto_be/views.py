@@ -1,6 +1,5 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from proyecto_be import models
 import requests
 
 def insert(request):
@@ -92,3 +91,18 @@ def gestionar(request):
     if res.status_code != 200:
         vista['error'] = res.text
     return render(request, 'index.html', vista)
+
+def detalles(request,codigo):
+    try:
+        respuesta = requests.get(f'http://127.0.0.1:3004/search/{codigo}')
+        if respuesta.status_code  == 200:
+            detalles = respuesta.json()
+            return render(request, 'detalles.html', {'detalles':detalles})
+        else:
+            return render(request,'error.html', {'error': respuesta.text})
+    except Exception as e:
+        print(f'esto fue lo que paso: {e}') 
+        return render(request, 'error.html', {'error': str(e)})
+    
+def login():
+    pass
