@@ -1,6 +1,9 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate
 import requests
+
+def login():
+    pass
 
 def insert(request):
     try:
@@ -104,5 +107,3 @@ def detalles(request,codigo):
         print(f'esto fue lo que paso: {e}') 
         return render(request, 'error.html', {'error': str(e)})
     
-def login():
-    pass
