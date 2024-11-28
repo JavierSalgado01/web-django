@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from proyecto_be import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +27,6 @@ urlpatterns = [
     path('delete', views.delete, name='delete'),
     path('search', views.search, name='search'),
     path('detalles/<int:codigo>/', views.detalles, name='detalles'),
+    path('login/', views.login, name='login'),
+    path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
 ]

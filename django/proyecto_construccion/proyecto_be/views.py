@@ -1,10 +1,32 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login as acceso
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 import requests
 
-def login():
-    pass
+def login(request):
+    try:
+        if request.method == 'POST':
+            username = request.POST.get('user')
+            password = request.POST.get('pass')
 
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                if user.is_superuser :
+                    acceso(request, user)
+                    return redirect('gestionar')
+                else:
+                    messages.error('credenciales incorrectas')
+                    return render(request, 'login.html')
+            else:
+                messages.error('credencial incompletas')
+        return render(request,'login.html')
+
+    except Exception as e:
+        print(f'esto fue lo que paso {e}')
+        return render(request, 'error.html', {'error': str(e)})
+
+@login_required
 def insert(request):
     try:
         if request.method == 'POST':
@@ -31,6 +53,7 @@ def insert(request):
         print(f'esto fue lo que paso: {e}') 
         return render(request, 'error.html', {'error': str(e)})
 
+@login_required
 def update(request):
     try:
         if request.method == 'POST':
@@ -57,7 +80,8 @@ def update(request):
     except Exception as e:
         print(f'esto fue lo que paso: {e}') 
         return render(request, 'error.html', {'error': str(e)})
-        
+
+@login_required   
 def delete(request):
     try:
         if request.method == 'POST':
@@ -87,6 +111,7 @@ def search(request):
         print(f'esto fue lo que paso: {e}') 
         return render(request, 'error.html', {'error': str(e)})
 
+@login_required
 def gestionar(request):
     res = requests.get('http://127.0.0.1:3000/')
     proyectos = res.json() if res.status_code == 200 else []
@@ -95,6 +120,7 @@ def gestionar(request):
         vista['error'] = res.text
     return render(request, 'index.html', vista)
 
+@login_required
 def detalles(request,codigo):
     try:
         respuesta = requests.get(f'http://127.0.0.1:3004/search/{codigo}')

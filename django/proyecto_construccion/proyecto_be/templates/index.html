@@ -180,11 +180,11 @@
 
     <div class="container">
         <h3>Listado de Proyectos</h3>
-        <div>
+        <div class="">
             {% if proyectos %}
                 {% for p in proyectos %}
-                <div> <!-- eliminar algunos campos despues-->
-                    <p><strong>Nombre:</strong> {{ p.nombre }}</p>
+                <div class=""> <!-- eliminar algunos campos despues-->
+                    <p><strong>Nombre:</strong> {{ p.nombre }}    </p>
                     <p><strong>Direccion:</strong> {{ p.ubicacion }}</p>
                     <p><strong>Region:</strong> {{ p.region }}</p>
                     <p><strong>Presupuesto:</strong> {{ p.presupuesto }}</p>
