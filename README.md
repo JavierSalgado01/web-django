@@ -11,6 +11,11 @@ Crear un nuevo proyecto en Firebase, e ir las configuraciones del proyecto en "P
 Activar entorno virtual para trabajar en dango (desde raiz de la carpeta):
   .\enviroment\Scripts\Activate.ps1
   
+  Si da error el entorno ejecutar como admin en powershell:
+  - Set-ExecutionPolicy unrestricted
+
 Para desactivar entorno:
    deactivate
 
+Instalacion de librerias:
+  - pip install -r requeriment.txt
