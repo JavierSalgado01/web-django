@@ -1,3 +1,4 @@
+from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as acceso
 from django.contrib.auth.decorators import login_required
@@ -29,7 +30,7 @@ def login(request):
 @login_required
 def insert(request):
     try:
-        if request.method == 'POST':
+        if request.method == 'POST' and 'file' in request.FILES:
             datos = {
                 'nombre': request.POST['nombre'],
                 'ubicacion': request.POST['ubicacion'],
@@ -37,21 +38,28 @@ def insert(request):
                 'presupuesto': request.POST['presupuesto'],
                 'solicitante': request.POST['solicitante'],
                 'estado': request.POST['estado'],
-                'fecha_i':request.POST['fecha_i'],
+                'fecha_i': request.POST['fecha_i'],
                 'fecha_t': request.POST['fecha_t'],
                 'codigo': request.POST['codigo']
-                }
-            respuesta = requests.post('http://127.0.0.1:3001/insert', json=datos)
+            }
 
-            if respuesta.status_code == [200, 201]:
-                return render(request,'error.html', {'error': respuesta.text})
-            else:
+            archivo = request.FILES['file']
+            archivo_datos = {
+                'file': (archivo.name, archivo, archivo.content_type)
+            }
+
+            respuesta = requests.post('http://127.0.0.1:3001/insert', data=datos, files=archivo_datos)
+
+            if respuesta.status_code in [200, 201]:
                 return redirect('gestionar')
-            
+            else:
+                return render(request, 'error.html', {'error': respuesta.text})
+
         return render(request, 'index.html')
     except Exception as e:
-        print(f'esto fue lo que paso: {e}') 
+        print(f'Esto fue lo que pasó: {e}')
         return render(request, 'error.html', {'error': str(e)})
+
 
 @login_required
 def update(request):
