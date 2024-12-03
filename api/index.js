@@ -8,6 +8,7 @@ const servicio = require('./final-be-iot-firebase-adminsdk-wakra-b82f3b9014.json
 
 admin.initializeApp({
     credential: admin.credential.cert(servicio),
+    storageBucket: 'final-be-iot.firebasestorage.com',
     databaseURL: 'https://final-be-iot.firebaseio.com' //conseguirma la base de datos y colocar json de firebase en la raiz
 });
 
