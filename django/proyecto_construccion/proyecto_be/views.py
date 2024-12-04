@@ -43,9 +43,9 @@ def insert(request):
                 'codigo': request.POST['codigo']
             }
 
-            archivo = request.FILES['file']
+            docUrl = request.FILES['file']
             archivo_datos = {
-                'file': (archivo.name, archivo, archivo.content_type)
+                'file': (docUrl.name, docUrl, docUrl.content_type)
             }
 
             respuesta = requests.post('http://127.0.0.1:3001/insert', data=datos, files=archivo_datos)
@@ -64,7 +64,7 @@ def insert(request):
 @login_required
 def update(request):
     try:
-        if request.method == 'POST':
+        if request.method == 'POST' and 'file' in request.FILES:
             filtro = {'codigo':request.POST['codigo']}
             datos = {
                 'nombre': request.POST['nombre'],
@@ -76,7 +76,12 @@ def update(request):
                 'fecha_i':request.POST['fecha_i'],
                 'fecha_t': request.POST['fecha_t']
                 }
-            respuesta = requests.put(f'http://127.0.0.1:3003/update/{filtro["codigo"]}', json=datos)
+            
+            docUrl = request.FILES['file']
+            archivo_datos = {
+                'file': (docUrl.name, docUrl, docUrl.content_type)
+            }
+            respuesta = requests.put(f'http://127.0.0.1:3003/update/{filtro["codigo"]}', data=datos, files=archivo_datos)
 
             if respuesta.status_code == 200:
                 return redirect('gestionar')
@@ -88,6 +93,9 @@ def update(request):
     except Exception as e:
         print(f'esto fue lo que paso: {e}') 
         return render(request, 'error.html', {'error': str(e)})
+    
+def copiar(request):
+    pass
 
 @login_required   
 def delete(request):
