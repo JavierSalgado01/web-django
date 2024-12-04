@@ -1,17 +1,22 @@
 //firebase-admin  
 //express 
 //multer
-
+//no usar _ para separar, solo mayusculas
 const express = require('express');
 const admin = require('firebase-admin');
 const multer = require('multer');
 const servicio = require('./final-be-iot-firebase-adminsdk-wakra-b82f3b9014.json');
-const { resolve } = require('path');
+
+//multer: middleware que procesa solicitudes tipo: multipart/form-data
+//storage: servicio de firebase que guarda documentos e imagenes 
+//bucket: carpeta en la que se guardan los proyectos de storage 
+//mimetype: estantar que define que tipo de archivos para que se puedan interpretar correctamente
+//cb: callback, operador booleano
 
 const storage = multer.memoryStorage();
 const upload = multer({storage, 
     fileFilter : (req, file, cb) => {
-        const formato = ['image/png', 'image/jpg', 'image/jpeg','application/pdf']; 
+        const formato = ['image/png', 'image/jpg', 'image/jpeg','application/pdf']; //definicion de los formatos aceptados 
         if (formato.includes(file.mimetype)) {
             cb(null, true);
         } else {
@@ -29,8 +34,6 @@ const app = express();
 app.use(express.json())
 
 app.post('/insert', upload.single('file'), async (req, res) => {
-    console.log('archivo recibido:', req.file);
-    console.log('el body de la solicitud:', req.body);
     try {
         const newProyectos = req.body;
 
