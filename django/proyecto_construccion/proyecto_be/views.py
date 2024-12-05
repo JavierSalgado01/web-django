@@ -94,8 +94,6 @@ def update(request):
         print(f'esto fue lo que paso: {e}') 
         return render(request, 'error.html', {'error': str(e)})
     
-def copiar(request):
-    pass
 
 @login_required   
 def delete(request):
