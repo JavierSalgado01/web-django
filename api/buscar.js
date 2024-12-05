@@ -1,10 +1,12 @@
 const express = require('express');
 const admin = require('firebase-admin');
+const multer = require('multer');
 
 const servicio = require('./final-be-iot-firebase-adminsdk-wakra-b82f3b9014.json');
 
 admin.initializeApp({
     credential: admin.credential.cert(servicio),
+    storageBucket: 'final-be-iot.firebasestorage.com',
     databaseURL: 'https://final-be-iot.firebaseio.com' 
 });
 
