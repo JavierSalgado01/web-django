@@ -1,4 +1,4 @@
-# ubiquitous-fishstick
+# Proyecto constructora
 Instalación de dependencias Sistema: - Descargar e instalar nodejs: https://nodejs.org/en/
 
 IDE:
