@@ -13,7 +13,7 @@ admin.initializeApp({
 const app = express();
 app.use(express.json());
 
-const storage = multer.memoryStorage();
+const storage = multer.memoryStorage(); //guardado temporal
 const upload = multer({
     storage,
     fileFilter: (req, file, cb) => {

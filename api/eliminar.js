@@ -20,16 +20,18 @@ app.delete('/delete/:id', async (req, res) => {
         const doc_id = req.params.id; 
         const doc_ref = admin.firestore().collection('Proyectos').doc(doc_id);
 
-        const obtener = await doc_ref.get();
+        const obtener = await doc_ref.get(); //obtencion del id tanto del proyecto como del bucket de la imagen, ya que son compartidos
         const bucket = admin.storage().bucket(); 
 
         const proyectoDatos = obtener.data();
 
+        //Eliminacion del array en el enlace []
         if (proyectoDatos.docUrl) {
             const eliminarUrl = Array.isArray(proyectoDatos.docUrl)
-            ? proyectoDatos.docUrl
-            : [proyectoDatos.docUrl];
-        
+            ? proyectoDatos.docUrl //si si, si
+            : [proyectoDatos.docUrl]; //si no, no
+    
+    //Deletear el url de bucket
     for (const docUrl of eliminarUrl) {
         try {
             const fileName = docUrl.split(`/${bucket.name}/`)[1];

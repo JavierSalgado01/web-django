@@ -13,7 +13,7 @@ const servicio = require('./final-be-iot-firebase-adminsdk-wakra-b82f3b9014.json
 //mimetype: estantar que define que tipo de archivos para que se puedan interpretar correctamente
 //cb: callback, operador booleano
 
-const storage = multer.memoryStorage();
+const storage = multer.memoryStorage(); //memoria temporal
 const upload = multer({storage, 
     fileFilter : (req, file, cb) => {
         const formato = ['image/png', 'image/jpg', 'image/jpeg','application/pdf']; //definicion de los formatos aceptados 
@@ -51,22 +51,23 @@ app.post('/insert', upload.single('file'), async (req, res) => {
         // Para subir archivo imagen/doc
         if (req.file) {
             const bucket = admin.storage().bucket(); 
-            const nombre = `proyectos/${newProyectos.codigo}/${req.file.originalname}`;
-            const file = bucket.file(nombre);
+            const nombre = `proyectos/${newProyectos.codigo}/${req.file.originalname}`; //se genera la url con el codigo del proyecto y el nombre del archivo
+            const file = bucket.file(nombre); //se crea el bucket como tal 
 
+            //Guardar imagen
             await file.save(req.file.buffer, {
-                metadata: {
-                    contentType: req.file.mimetype,
+                metadata: { //especificacion del tipo de archivo
+                    contentType: req.file.mimetype, //tipo de archivo (mimetype lo identifica, jpg, gif, etc)
                 },
             });
 
-            await file.makePublic();
+            await file.makePublic(); //Para que sea visible la imagen, esta se debe hacer publica 
 
-            const docUrl = `https://storage.googleapis.com/${bucket.name}/${file.name}`;
-            newProyectos.docUrl = docUrl; 
+            const docUrl = `https://storage.googleapis.com/${bucket.name}/${file.name}`; //enlace se guarda en la variable url
+            newProyectos.docUrl = docUrl; //la imagen se guarda junto al proyecto creado en el mismo formulario
         }
 
-        await proyectoRef.set(newProyectos);
+        await proyectoRef.set(newProyectos); 
         res.status(200).json({
             id: newProyectos.codigo,
             archivoUrl: newProyectos.docUrl || null,
