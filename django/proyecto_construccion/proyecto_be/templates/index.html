@@ -188,25 +188,27 @@
 
     <div class="container">
         <h3>Listado de Proyectos</h3>
-        <div class="">
-            {% if proyectos %}
-                {% for p in proyectos %}
-                <div class=""> <!-- eliminar algunos campos despues-->
-                    <img src="{{ p.docUrl }}"  alt="imagen no disponible" style="height: auto; width: auto;">
-                    <p><strong>Nombre:</strong> {{ p.nombre }}    </p>
-                    <p><strong>Direccion:</strong> {{ p.ubicacion }}</p>
-                    <p><strong>Region:</strong> {{ p.region }}</p>
-                    <p><strong>Presupuesto:</strong> {{ p.presupuesto }}</p>
-                    <p><strong>Solicitante:</strong> {{ p.solicitante }}</p>
-                    <p><strong>Estado:</strong> {{ p.estado }}</p>
-                    <p><strong>Fecha Inicio:</strong> {{ p.fecha_i }}</p>
-                    <p><strong>Fecha Termino:</strong> {{ p.fecha_t }}</p>
-                    <p><strong>Codigo:</strong> {{ p.codigo }}</p>
-                    <a href="{% url 'detalles' p.codigo  %}" class="btn btn-info">Ver detalles</a>
-                </div><br>
-                {% endfor %}
-            {% endif %}
-        </div>
+                {% if proyectos %}
+                    {% for p in proyectos %}
+            <div class="card mb-3">
+                <div class= "card-body">
+                    <div class=""> <!-- eliminar algunos campos despues-->
+                        <img src="{{ p.docUrl }}"  alt="imagen no disponible" style="height: auto; width: auto;">
+                        <p><strong>Nombre:</strong> {{ p.nombre }}    </p>
+                        <p><strong>Direccion:</strong> {{ p.ubicacion }}</p>
+                        <p><strong>Region:</strong> {{ p.region }}</p>
+                        <p><strong>Presupuesto:</strong> {{ p.presupuesto }}</p>
+                        <p><strong>Solicitante:</strong> {{ p.solicitante }}</p>
+                        <p><strong>Estado:</strong> {{ p.estado }}</p>
+                        <p><strong>Fecha Inicio:</strong> {{ p.fecha_i }}</p>
+                        <p><strong>Fecha Termino:</strong> {{ p.fecha_t }}</p>
+                        <p><strong>Codigo:</strong> {{ p.codigo }}</p>
+                        <a href="{% url 'detalles' p.codigo  %}" class="btn btn-info">Ver detalles</a>
+                    </div><br>
+                </div>
+            </div>
+                    {% endfor %}
+                {% endif %}
     </div>
 </body>
 </html>
