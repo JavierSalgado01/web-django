@@ -49,7 +49,7 @@
 
 .slider .slider-inner {
     display: flex;
-    animation: slide 120s linear infinite;
+    animation: slide 240s linear infinite;
 }
 
 @keyframes slide {

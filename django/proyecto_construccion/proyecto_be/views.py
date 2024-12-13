@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login as acceso
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 import requests
+import random
 
 def login(request):
     try:
@@ -134,8 +135,22 @@ def gestionar(request):
         vista['error'] = res.text
     return render(request, 'index.html', vista)
     
+import random
+import requests
+
 def principal(request):
-    return render(request, 'principal.html')
+    res = requests.get('http://127.0.0.1:3000/') 
+    proyectos = res.json() if res.status_code == 200 else []  
+    vista = {}
+    if proyectos:
+        destacados = random.sample(proyectos, min(3, len(proyectos)))  
+        vista['destacados'] = destacados  
+    else:
+        vista['destacados'] = []  
+    if res.status_code != 200:
+        vista['error'] = res.text
+    return render(request, 'principal.html', vista)
+
 
 def proyectos(request):
     res = requests.get('http://127.0.0.1:3000/')

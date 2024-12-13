@@ -9,28 +9,30 @@
 </head>
 <body>
     <div class="container">
-        <h1>Proyecto</h1>
-            <section>
-                <div>
-                    {% if detalles %}
-                        <div>
-                            <img src="{{ detalles.docUrl }}"  alt="imagen no disponible" style="height: auto; width: auto;">
-                            <p><strong>Nombre:</strong> {{ detalles.nombre }}</p>
-                            <p><strong>Direccion:</strong> {{ detalles.ubicacion }}</p>
-                            <p><strong>Región:</strong> {{ detalles.region }}</p>
-                            <p><strong>Presupuesto:</strong> {{ detalles.presupuesto }}</p>
-                            <p><strong>Solicitante:</strong> {{ detalles.solicitante }}</p>
-                            <p><strong>Estado:</strong> {{ detalles.estado }}</p>
-                            <p><strong>Fecha Inicio:</strong> {{ detalles.fecha_i }}</p>
-                            <p><strong>Fecha Término:</strong> {{ detalles.fecha_t }}</p>
-                        </div>
-                    {% endif %}
-                </div><br>
-            </section>
+        {% if detalles %}
+            <h1>{{ detalles.nombre }}</h1>
+                <section>
+                    <div>
+                        
+                            <div>
+                                <img src="{{ detalles.docUrl }}"  alt="imagen no disponible" style="height: auto; width: auto;">
+                                <p><strong>Direccion:</strong> {{ detalles.ubicacion }}</p>
+                                <p><strong>Región:</strong> {{ detalles.region }}</p>
+                                <p><strong>Presupuesto:</strong> {{ detalles.presupuesto }}</p>
+                                <p><strong>Solicitante:</strong> {{ detalles.solicitante }}</p>
+                                <p><strong>Estado:</strong> {{ detalles.estado }}</p>
+                                <p><strong>Fecha Inicio:</strong> {{ detalles.fecha_i }}</p>
+                                <p><strong>Fecha Término:</strong> {{ detalles.fecha_t }}</p>
+                            </div>
+                        
 
-            <div>
-                <a href="{%url 'proyectos' %}" class="btn btn-primary"> Volver</a>
-            </div>
+                    </div><br>
+                </section>
+
+                <div>
+                    <a href="{%url 'proyectos' %}" class="btn btn-primary"> Volver</a>
+                </div>
+        {% endif %}
     </div>    
 </body>
 </html>
