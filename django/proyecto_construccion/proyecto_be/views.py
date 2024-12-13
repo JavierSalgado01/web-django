@@ -133,8 +133,18 @@ def gestionar(request):
     if res.status_code != 200:
         vista['error'] = res.text
     return render(request, 'index.html', vista)
+    
+def principal(request):
+    return render(request, 'principal.html')
 
-@login_required
+def proyectos(request):
+    res = requests.get('http://127.0.0.1:3000/')
+    proyectos = res.json() if res.status_code == 200 else []
+    vista = {'proyectos': proyectos}
+    if res.status_code != 200:
+        vista['error'] = res.text
+    return render(request, 'lista.html', vista)
+
 def detalles(request,codigo):
     try:
         respuesta = requests.get(f'http://127.0.0.1:3004/search/{codigo}')
@@ -146,6 +156,3 @@ def detalles(request,codigo):
     except Exception as e:
         print(f'esto fue lo que paso: {e}') 
         return render(request, 'error.html', {'error': str(e)})
-    
-def principal(request):
-    return render(request, 'principal.html')
