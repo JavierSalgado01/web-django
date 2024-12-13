@@ -17,7 +17,7 @@
     <nav class="navbar navbar-expand-lg mb-3">
         <div class="container">
             <img  src="{% static 'logo/logo.png' %}" width="30px" height="30px"/>
-            <h3 class="text-white" style="margin-left: 10px;">Constructora</h3>   
+            <h3 class="text-white" style="margin-left: 10px;" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">Constructora: construyendo sueños</h3>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -81,11 +81,41 @@
             </div>
         </div>
 
-        <h3 class="text-center mb-4" style="font-family: Arial, Helvetica, sans-serif;"> Nuestros clientes: </h3>
+    <h3 class="text-center mb-5" style="font-family: Arial, Helvetica, sans-serif;"> Nuestros clientes: </h3>
+    <div class="slider">
+        <div class="slider-inner">
+            <img src="{% static 'clientes/colina.jpg' %}" alt="colina" width="250px" height="250px">
+            <img src="{% static 'clientes/renca.jpg' %}" alt="renca" width="250px" height="250px">
+            <img src="{% static 'clientes/mop.jpg' %}" alt="mop" width="250px" height="250px">
+            <img src="{% static 'clientes/jumbo.jpg' %}" alt="jum" width="250px" height="250px">
+            <img src="{% static 'clientes/til.png' %}" alt="til" width="250px" height="250px">
+            <img src="{% static 'clientes/bancoe.jpg' %}" alt="bnc" width="250px" height="250px">
+            <img src="{% static 'clientes/bupa.jpg' %}" alt="bupa" width="250px" height="250px">
+            <img src="{% static 'clientes/mc.jpg' %}" alt="mc" width="250px" height="250px">
+            <img src="{% static 'clientes/burger.jpg' %}" alt="" width="250px" height="250px">
+        </div>
+    </div>
+    
 
     <div class="container-fluid bg-dark text-white py-3">
         <div class="container">
-            <p class="text-white">Constructora S.A nos reservamos los derechos a mostrar imagenes que pueden o no ser reales de acuerdo al productos</p>
+            <p class="text-white">Constructora S.A nos reservamos los derechos a mostrar 
+                imagenes que pueden o no ser reales de acuerdo al productos</p>
+                <div class="d-flex justify-content-center mt-5">
+                    <a href="https://www.facebook.com" class="me-4">
+                        <img src="{% static 'svg/facebook.svg' %}" alt="Facebook" width="35px" height="35px">
+                    </a>
+                    <a href="https://www.instagram.com" class="me-3">
+                        <img src="{% static 'svg/instagram.svg' %}" alt="Instagram" width="35px" height="35px">
+                    </a>
+                    <a href="https://www.linkedin.com" class="me-3">
+                        <img src="{% static 'svg/linkedin.svg' %}" alt="LinkedIn" width="35px" height="35px">
+                    </a>
+                    <a href="https://www.youtube.com" class="me-3">
+                        <img src="{% static 'svg/youtube.svg' %}" alt="Youtube" width="35px" height="35px">
+                    </a>
+                </div>
+                
         </div>
     </div>
 </body>
