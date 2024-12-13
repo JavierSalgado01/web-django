@@ -147,3 +147,5 @@ def detalles(request,codigo):
         print(f'esto fue lo que paso: {e}') 
         return render(request, 'error.html', {'error': str(e)})
     
+def principal(request):
+    return render(request, 'principal.html')

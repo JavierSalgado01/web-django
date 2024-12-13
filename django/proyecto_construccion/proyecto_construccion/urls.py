@@ -28,5 +28,6 @@ urlpatterns = [
     path('search', views.search, name='search'),
     path('detalles/<int:codigo>/', views.detalles, name='detalles'),
     path('login/', views.login, name='login'),
+    path('', views.principal, name='home'),
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
 ]

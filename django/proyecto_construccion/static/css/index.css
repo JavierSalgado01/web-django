@@ -1,0 +1,34 @@
+.title1 {
+    color: white !important
+}
+
+.navbar {
+    background-color: #333;
+}
+.navbar-brand {
+    color: #fff;
+}
+.nav-link {
+    color: #fff;
+}
+.nav-link:hover {
+    color: #ccc;
+}
+.card {
+    margin-bottom: 1.5rem;
+}
+.card img {
+    max-height: 200px;
+    object-fit: cover;
+}
+.card-body {
+    padding: 1rem;
+}
+.btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+.btn-info:hover {
+    background-color: #138496;
+    border-color: #117a8b;
+}
