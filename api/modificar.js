@@ -28,7 +28,7 @@ const upload = multer({
 
 app.put("/update/:codigo", upload.single('file'), async (req, res) => {
     try {
-        const { nombre, ubicacion, region, presupuesto, fecha_i, solicitante, estado, fecha_t } = req.body;
+        const { nombre, ubicacion, region, presupuesto, fecha_i, solicitante, estado, fecha_t, descripcion } = req.body;
         const { codigo } = req.params;
 
         const busca = await admin.firestore().collection('Proyectos').where('codigo', '==', codigo).get();
@@ -80,7 +80,7 @@ app.put("/update/:codigo", upload.single('file'), async (req, res) => {
             nuevoDocUrl = `https://storage.googleapis.com/${bucket.name}/${file.name}`; //url generada 
         }
 
-        const datos = {nombre, ubicacion, region, presupuesto, fecha_i, solicitante, estado, fecha_t}; 
+        const datos = {nombre, ubicacion, region, presupuesto, fecha_i, solicitante, estado, fecha_t, descripcion}; 
 
         //Si no se llegase a subir ninguna imagen, este elimina el campo que contiene la url de la imagen
         if (nuevoDocUrl) { 
