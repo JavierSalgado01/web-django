@@ -41,7 +41,8 @@ def insert(request):
                 'estado': request.POST['estado'],
                 'fecha_i': request.POST['fecha_i'],
                 'fecha_t': request.POST['fecha_t'],
-                'codigo': request.POST['codigo']
+                'codigo': request.POST['codigo'],
+                'descripcion': request.POST['descripcion']
             }
 
             docUrl = request.FILES['file']
@@ -75,7 +76,8 @@ def update(request):
                 'solicitante': request.POST['solicitante'],
                 'estado': request.POST['estado'],
                 'fecha_i':request.POST['fecha_i'],
-                'fecha_t': request.POST['fecha_t']
+                'fecha_t': request.POST['fecha_t'],
+                'descripcion': request.POST['descripcion']
                 }
             
             docUrl = request.FILES['file']
@@ -111,6 +113,7 @@ def delete(request):
         print(f'esto fue lo que paso: {e}') 
         return render(request, 'error.html', {'error': str(e)})
 
+@login_required
 def search(request):
     try:
         if request.method == 'POST':
@@ -134,9 +137,6 @@ def gestionar(request):
     if res.status_code != 200:
         vista['error'] = res.text
     return render(request, 'index.html', vista)
-    
-import random
-import requests
 
 def principal(request):
     res = requests.get('http://127.0.0.1:3000/') 

@@ -8,9 +8,14 @@
     <title>Gestion de proyectos</title>
 </head>
 <body>
-    <header>
-        <h1 class="text-center mb-5">Administracion de proyectos de construccion</h1>
+    <header class="d-flex justify-content-between align-items-center">
+        <h1 class="mb-0 mx-auto mb-4">Administración de proyectos de construcción</h1>
+            <form action="{% url 'logout' %}" method="POST">
+                {% csrf_token %}
+                <button class="btn btn-danger" type="submit">Salir</button>
+            </form>
     </header>
+    
     
     <div class="container">
         <div class="row">
@@ -74,6 +79,10 @@
                     <div class="mb-3">
                         <label for="fecha_t" class="form-label">Fecha término:</label>
                         <input type="date" name="fecha_t" id="fecha_t" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripcion:</label>
+                        <textarea type="text" name="descripcion" id="descripcion" class="form-control" required ></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="file" class="form-label">Imagen:</label>
@@ -148,6 +157,10 @@
                         <input type="date" name="fecha_t" id="fecha_t" class="form-control" required>
                     </div>
                     <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripcion:</label>
+                        <textarea type="text" name="descripcion" id="descripcion" class="form-control" required ></textarea>
+                    </div>
+                    <div class="mb-3">
                         <label for="file" class="form-label">Imagen:</label>
                         <input type="file" name="file" id="file" class="form-control" accept="image/png, image/jpeg" required>
                     </div>
@@ -190,26 +203,32 @@
 
     <div class="container">
         <h3>Listado de Proyectos</h3>
-                {% if proyectos %}
-                    {% for p in proyectos %}
+        {% if proyectos %}
+            {% for p in proyectos %}
             <div class="card mb-3">
-                <div class= "card-body">
-                    <div class=""> <!-- eliminar algunos campos despues-->
-                        <img src="{{ p.docUrl }}"  alt="imagen no disponible" style="height: auto; width: auto;">
-                        <p><strong>Nombre:</strong> {{ p.nombre }}    </p>
-                        <p><strong>Direccion:</strong> {{ p.ubicacion }}</p>
-                        <p><strong>Region:</strong> {{ p.region }}</p>
-                        <p><strong>Presupuesto:</strong> {{ p.presupuesto }}</p>
-                        <p><strong>Solicitante:</strong> {{ p.solicitante }}</p>
-                        <p><strong>Estado:</strong> {{ p.estado }}</p>
-                        <p><strong>Fecha Inicio:</strong> {{ p.fecha_i }}</p>
-                        <p><strong>Fecha Termino:</strong> {{ p.fecha_t }}</p>
-                        <p><strong>Codigo:</strong> {{ p.codigo }}</p>
-                    </div><br>
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{ p.docUrl }}" alt="imagen no disponible" class="img-fluid rounded-start" style="height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p><strong>Código:</strong> {{ p.codigo }}</p>
+                            <p><strong>Nombre:</strong> {{ p.nombre }}</p>
+                            <p><strong>Dirección:</strong> {{ p.ubicacion }}</p>
+                            <p><strong>Región:</strong> {{ p.region }}</p>
+                            <p><strong>Presupuesto:</strong> {{ p.presupuesto }}</p>
+                            <p><strong>Solicitante:</strong> {{ p.solicitante }}</p>
+                            <p><strong>Estado:</strong> {{ p.estado }}</p>
+                            <p><strong>Fecha Inicio:</strong> {{ p.fecha_i }}</p>
+                            <p><strong>Fecha Término:</strong> {{ p.fecha_t }}</p>
+                            <p><strong>Descripción:</strong> {{p.descripcion }}
+                        </div>
+                    </div>
                 </div>
             </div>
-                    {% endfor %}
-                {% endif %}
+            {% endfor %}
+        {% endif %}
     </div>
+    
 </body>
 </html>
