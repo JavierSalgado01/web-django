@@ -68,9 +68,11 @@ app.post('/insert', upload.single('file'), async (req, res) => {
         }
 
         await proyectoRef.set(newProyectos); 
+        console.log('proyecto agregado correctamente')
         res.status(200).json({
             id: newProyectos.codigo,
-            archivoUrl: newProyectos.docUrl || null,
+            archivoUrl: newProyectos.docUrl || null, // si no hay nada, no se agrega nada simplemente 
+        
         });
     } catch (error) {
         res.status(500).send('Error al agregar un proyecto: ' + error.message);
