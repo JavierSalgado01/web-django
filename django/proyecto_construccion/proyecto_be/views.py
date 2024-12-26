@@ -28,6 +28,15 @@ def login(request):
         return render(request, 'error.html', {'error': str(e)})
 
 @login_required
+def gestionar(request):
+    res = requests.get('http://127.0.0.1:3000/')
+    proyectos = res.json() if res.status_code == 200 else []
+    vista = {'proyectos': proyectos}
+    if res.status_code != 200:
+        vista['error'] = res.text
+    return render(request, 'index.html', vista)
+
+@login_required
 def insert(request):
     try:
         if request.method == 'POST' and 'file' in request.FILES:
@@ -61,12 +70,22 @@ def insert(request):
         print(f'Esto fue lo que pasó: {e}')
         return render(request, 'error.html', {'error': str(e)})
 
+@login_required
+def obtener_redirigir(request, codigo):
+    try:
+        respuesta = requests.get(f'http://127.0.0.1:3004/search/{codigo}')
+        if respuesta.status_code == 200:
+            proyecto = respuesta.json()
+            return render(request, 'actualizar.html', {'codigo': codigo, 'pr': proyecto})
+        return render(request, 'error.html', {'error': respuesta.text})
+    except Exception as e:
+        print(f'Error al obtener los datos del proyecto: {e}')
+        return render(request, 'error.html', {'error': str(e)})
 
 @login_required
-def update(request):
+def update(request, codigo):
     try:
         if request.method == 'POST' and 'file' in request.FILES:
-            filtro = {'codigo':request.POST['codigo']}
             datos = {
                 'nombre': request.POST['nombre'],
                 'ubicacion': request.POST['ubicacion'],
@@ -74,40 +93,34 @@ def update(request):
                 'presupuesto': request.POST['presupuesto'],
                 'solicitante': request.POST['solicitante'],
                 'estado': request.POST['estado'],
-                'fecha_i':request.POST['fecha_i'],
+                'fecha_i': request.POST['fecha_i'],
                 'fecha_t': request.POST['fecha_t'],
                 'descripcion': request.POST['descripcion']
-                }
-            
-            docUrl = request.FILES['file']
-            archivo_datos = {
-                'file': (docUrl.name, docUrl, docUrl.content_type)
             }
-            respuesta = requests.put(f'http://127.0.0.1:3003/update/{filtro["codigo"]}', data=datos, files=archivo_datos)
-
-            if respuesta.status_code == 200:
-                return redirect('gestionar')
-            else:
-                return render(request,'error.html', {'error': respuesta.text})
+            archivo = request.FILES['file']
+            archivo_datos = {
+                'file': (archivo.name, archivo, archivo.content_type)
+            }
+            respuesta = requests.put(f'http://127.0.0.1:3003/update/{codigo}', data=datos, files=archivo_datos)
             
-        return render(request, 'index.html')
-    
+            if respuesta.status_code == 200:
+                return redirect('gestionar') 
+            else:
+                return render(request, 'error.html', {'error': respuesta.text})
+        
+        return render(request, 'actualizar.html', {'codigo': codigo})
     except Exception as e:
-        print(f'esto fue lo que paso: {e}') 
+        print(f'Error al actualizar el proyecto: {e}')
         return render(request, 'error.html', {'error': str(e)})
-    
 
 @login_required   
-def delete(request):
+def delete(request, codigo):
     try:
-        if request.method == 'POST':
-            filtro = int(request.POST['codigo'])
-            respuesta = requests.delete(f'http://127.0.0.1:3002/delete/{filtro}')
-            if respuesta.status_code  == 200:
-                return redirect('gestionar')
-            else:
-                return render(request,'error.html')
-        return render(request, 'index.html')
+        respuesta = requests.delete(f'http://127.0.0.1:3002/delete/{codigo}')
+        if respuesta.status_code  == 200:
+            return redirect(gestionar)
+        else:
+            return render(request,'error.html')
     except Exception as e:
         print(f'esto fue lo que paso: {e}') 
         return render(request, 'error.html', {'error': str(e)})
@@ -127,15 +140,6 @@ def search(request):
     except Exception as e:
         print(f'esto fue lo que paso: {e}') 
         return render(request, 'error.html', {'error': str(e)})
-
-@login_required
-def gestionar(request):
-    res = requests.get('http://127.0.0.1:3000/')
-    proyectos = res.json() if res.status_code == 200 else []
-    vista = {'proyectos': proyectos}
-    if res.status_code != 200:
-        vista['error'] = res.text
-    return render(request, 'index.html', vista)
 
 def principal(request):
     res = requests.get('http://127.0.0.1:3000/') 
