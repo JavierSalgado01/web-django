@@ -7,9 +7,9 @@ Poner descripcion luego...
 Descargar e instalar nodejs: https://nodejs.org/en/ 
 En terminal del IDE/Powershell en carpeta raiz del proyecto:  
 `pip install virtualvenv`  
-`python -m venv nombre-tu-entorno`
-`.\entorno\Scripts\Activate.ps1`
-(nombre-entorno)`python -m pip install -r requeriment.txt`
+`python -m venv nombre-tu-entorno`  
+`.\entorno\Scripts\Activate.ps1`  
+(nombre-entorno)`python -m pip install -r requeriment.txt`  
 `python django/proyecto/manage.py runserver`  
 
 Abrir terminal cmd en la ruta api  (o si prefieres, realizar un split en terminal del propio IDE) 
