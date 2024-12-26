@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <title>Actualizar</title>
+</head>
+<body>
+    <div class="container py-5">
+        <a href="{% url 'gestionar' %}" class="btn btn-info">Volver</a>
+        <h3 class="text-center mb-4">Modificar proyecto</h3>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <form action="{% url 'update' codigo %}" method="POST"  enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="codigo" class="form-label">Codigo:</label>
+                            <input type="text" name="codigo" id="codigo" class="form-control" value="{{pr.codigo}}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre:</label>
+                            <input type="text" name="nombre" id="nombre" class="form-control" value="{{pr.nombre}}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="ubicacion" class="form-label">Dirección:</label>
+                            <input type="text" name="ubicacion" id="ubicacion" class="form-control" value="{{pr.ubicacion}}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="region" class="form-label">Región:</label>
+                            <select name="region" id="region" class="form-control" required>
+                                <option value="ARICA Y PARINACOTA">ARICA Y PARINACOTA</option>
+                                <option value="TARAPACA">TARAPACA</option>
+                                <option value="ANTOFAGASTA">ANTOFAGASTA</option>
+                                <option value="COQUIMBO">COQUIMBO</option>
+                                <option value="VALPARAISO">VALPARAISO</option>
+                                <option value="METROPOLITANA">METROPOLITANA</option>
+                                <option value="O'HIGGINS">O'HIGGINS</option>
+                                <option value="MAULE">MAULE</option>
+                                <option value="ÑUBLE">ÑUBLE</option>
+                                <option value="BIO BIO">BIO BIO</option>
+                                <option value="LA ARAUCANIA">LA ARAUCANIA</option>
+                                <option value="LOS RIOS">LOS RIOS</option>
+                                <option value="LOS LAGOS">LOS LAGOS</option>
+                                <option value="AYSEN">AYSEN </option>
+                                <option value="MAGALLANES Y LA ANTARTICA CHILENA">MAGALLANES Y LA ANTARTICA CHILENA</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="presupuesto" class="form-label">Presupuesto:</label>
+                            <input type="number" name="presupuesto" id="presupuesto" class="form-control" value="{{pr.presupuesto}}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="solicitante" class="form-label">Solicitante:</label>
+                            <input type="text" name="solicitante" id="solicitante" class="form-control" value="{{pr.solicitante}}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="estado" class="form-label">Estado:</label>
+                            <select name="estado" id="estado" class="form-control" placeholder="Estado" required>
+                                <option value="EN PROGRESO">EN PROGRESO</option>
+                                <option value="FINALIZADO">FINALIZADO</option>
+                                <option value="NO INICIADO">NO INICIADO</option>
+                                <option value="SUSPENDIDO">SUSPENDIDO</option>
+                                
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fecha_i" class="form-label">Fecha inicio:</label>
+                            <input type="date" name="fecha_i" id="fecha_i" class="form-control" value="{{pr.fecha_i}}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fecha_t" class="form-label">Fecha término:</label>
+                            <input type="date" name="fecha_t" id="fecha_t" class="form-control" value="{{pr.fecha_t}}"required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label">Descripcion:</label>
+                            <textarea type="textarea" name="descripcion" id="descripcion" class="form-control" value="{{pr.descripcion}}" required ></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="file" class="form-label">Imagen:</label>
+                            <input type="file" name="file" id="file" class="form-control" accept="image/png, image/jpeg, 'image/jpg'"  required>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button class="btn btn-warning mb-2" type="submit">Actualizar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+    </div>
+</div>
+</div><br>
+</body>
+</html>

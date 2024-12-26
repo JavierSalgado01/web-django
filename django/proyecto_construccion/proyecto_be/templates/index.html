@@ -5,22 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <title>Gestion de proyectos</title>
+    <title>Gestión de Proyectos</title>
 </head>
 <body>
-    <header class="d-flex justify-content-between align-items-center">
-        <h1 class="mb-0 mx-auto mb-4">Administración de proyectos de construcción</h1>
-            <form action="{% url 'logout' %}" method="POST">
-                {% csrf_token %}
-                <button class="btn btn-danger" type="submit">Salir</button>
-            </form>
+    <header class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="text-center mx-auto">Administración de Proyectos de Construcción</h1>
+        <form action="{% url 'logout' %}" method="POST">
+            {% csrf_token %}
+            <button class="btn btn-danger" type="submit">Salir</button>
+        </form>
     </header>
     
-    
     <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h3 class="text-center">Crear proyecto</h3>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h3 class="text-center">Crear Proyecto</h3>
                 <form action="{% url 'insert' %}" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="mb-3">
@@ -29,7 +28,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="nombre" class="form-label">Nombre:</label>
-                        <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre proyecto" required>
+                        <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre Proyecto" required>
                     </div>
                     <div class="mb-3">
                         <label for="ubicacion" class="form-label">Dirección:</label>
@@ -37,7 +36,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="region" class="form-label">Región:</label>
-                        <select name="region" id="region" class="form-control" placeholder="Región" required>
+                        <select name="region" id="region" class="form-control" required>
                             <option value="ARICA Y PARINACOTA">ARICA Y PARINACOTA</option>
                             <option value="TARAPACA">TARAPACA</option>
                             <option value="ANTOFAGASTA">ANTOFAGASTA</option>
@@ -51,7 +50,7 @@
                             <option value="LA ARAUCANIA">LA ARAUCANIA</option>
                             <option value="LOS RIOS">LOS RIOS</option>
                             <option value="LOS LAGOS">LOS LAGOS</option>
-                            <option value="AYSEN">AYSEN </option>
+                            <option value="AYSEN">AYSEN</option>
                             <option value="MAGALLANES Y LA ANTARTICA CHILENA">MAGALLANES Y LA ANTARTICA CHILENA</option>
                         </select>
                     </div>
@@ -65,7 +64,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="estado" class="form-label">Estado:</label>
-                        <select name="estado" id="estado" class="form-control" placeholder="Estado" required>
+                        <select name="estado" id="estado" class="form-control" required>
                             <option value="EN PROGRESO">EN PROGRESO</option>
                             <option value="FINALIZADO">FINALIZADO</option>
                             <option value="NO INICIADO">NO INICIADO</option>
@@ -81,8 +80,8 @@
                         <input type="date" name="fecha_t" id="fecha_t" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label for="descripcion" class="form-label">Descripcion:</label>
-                        <textarea type="text" name="descripcion" id="descripcion" class="form-control" required ></textarea>
+                        <label for="descripcion" class="form-label">Descripción:</label>
+                        <textarea name="descripcion" id="descripcion" class="form-control" required></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="file" class="form-label">Imagen:</label>
@@ -93,114 +92,28 @@
                     </div>
                 </form>
             </div>
-    
-            <div class="col-md-6">
-                <h3 class="text-center">Modificar proyecto</h3>
-                <form action="{% url 'update' %}" method="POST"  enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div class="mb-3">
-                        <label for="codigo" class="form-label">Código:</label>
-                        <input type="number" name="codigo" id="codigo" class="form-control" placeholder="Código" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="nombre" class="form-label">Nombre:</label>
-                        <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre proyecto" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="ubicacion" class="form-label">Dirección:</label>
-                        <input type="text" name="ubicacion" id="ubicacion" class="form-control" placeholder="Ubicación" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="region" class="form-label">Región:</label>
-                        <select name="region" id="region" class="form-control" placeholder="Región" required>
-                            <option value="ARICA Y PARINACOTA">ARICA Y PARINACOTA</option>
-                            <option value="TARAPACA">TARAPACA</option>
-                            <option value="ANTOFAGASTA">ANTOFAGASTA</option>
-                            <option value="COQUIMBO">COQUIMBO</option>
-                            <option value="VALPARAISO">VALPARAISO</option>
-                            <option value="METROPOLITANA">METROPOLITANA</option>
-                            <option value="O'HIGGINS">O'HIGGINS</option>
-                            <option value="MAULE">MAULE</option>
-                            <option value="ÑUBLE">ÑUBLE</option>
-                            <option value="BIO BIO">BIO BIO</option>
-                            <option value="LA ARAUCANIA">LA ARAUCANIA</option>
-                            <option value="LOS RIOS">LOS RIOS</option>
-                            <option value="LOS LAGOS">LOS LAGOS</option>
-                            <option value="AYSEN">AYSEN </option>
-                            <option value="MAGALLANES Y LA ANTARTICA CHILENA">MAGALLANES Y LA ANTARTICA CHILENA</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="presupuesto" class="form-label">Presupuesto:</label>
-                        <input type="number" name="presupuesto" id="presupuesto" class="form-control" placeholder="Presupuesto" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="solicitante" class="form-label">Solicitante:</label>
-                        <input type="text" name="solicitante" id="solicitante" class="form-control" placeholder="Solicitante" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="estado" class="form-label">Estado:</label>
-                        <select name="estado" id="estado" class="form-control" placeholder="Estado" required>
-                            <option value="EN PROGRESO">EN PROGRESO</option>
-                            <option value="FINALIZADO">FINALIZADO</option>
-                            <option value="NO INICIADO">NO INICIADO</option>
-                            <option value="SUSPENDIDO">SUSPENDIDO</option>
-                            
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="fecha_i" class="form-label">Fecha inicio:</label>
-                        <input type="date" name="fecha_i" id="fecha_i" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="fecha_t" class="form-label">Fecha término:</label>
-                        <input type="date" name="fecha_t" id="fecha_t" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="descripcion" class="form-label">Descripcion:</label>
-                        <textarea type="text" name="descripcion" id="descripcion" class="form-control" required ></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="file" class="form-label">Imagen:</label>
-                        <input type="file" name="file" id="file" class="form-control" accept="image/png, image/jpeg" required>
-                    </div>
-                    <div class="text-center">
-                        <button class="btn btn-warning" type="submit">Actualizar</button>
-                    </div>
-                </form>
-            </div>
         </div>
-    </div><br>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h3 class="text-center">Eliminar proyecto</h3>
-                <form action="{% url 'delete' %}" method="POST" class="text-center">
-                    {% csrf_token %}
-                    <div class="mb-3">
-                        <label for="codigo-eliminar" class="form-label">Código:</label>
-                        <input type="number" name="codigo" id="codigo-eliminar" class="form-control" placeholder="Código" required>
-                    </div>
-                    <button class="btn btn-danger" type="submit">Eliminar</button>
-                </form>
-            </div>
-    
-            <div class="col-md-6">
-                <h3 class="text-center">Buscar proyecto</h3>
-                <form action="{% url 'search' %}" method="POST" class="text-center">
+        <div class="row mt-5">
+            <div class="col-md-6 mx-auto">
+                <h3 class="text-center">Buscar Proyecto</h3>
+                <form action="{% url 'search' %}" method="POST">
                     {% csrf_token %}
                     <div class="mb-3">
                         <label for="codigo-buscar" class="form-label">Código:</label>
                         <input type="number" name="codigo" id="codigo-buscar" class="form-control" placeholder="Código" required>
                     </div>
-                    <button class="btn btn-primary" type="submit">Buscar</button>
+                    <div class="text-center">
+                        <button class="btn btn-primary" type="submit">Buscar</button>
+                    </div>
                 </form>
             </div>
         </div>
-    </div><br>
-    
+    </div>
+</body>
+</html>
 
+    
     <div class="container">
         <h3>Listado de Proyectos</h3>
         {% if proyectos %}
@@ -221,14 +134,15 @@
                             <p><strong>Estado:</strong> {{ p.estado }}</p>
                             <p><strong>Fecha Inicio:</strong> {{ p.fecha_i }}</p>
                             <p><strong>Fecha Término:</strong> {{ p.fecha_t }}</p>
-                            <p><strong>Descripción:</strong> {{p.descripcion }}
-                        </div>
+                            <p><strong>Descripción:</strong> {{p.descripcion }}</p>
+                            <a href="{% url 'delete' p.codigo %}" class="btn btn-danger">Eliminar</a>
+                            <a href="{% url 'actualizar' p.codigo %}" class="btn btn-warning mx-5">Modificar</a>
+                        </div>     
                     </div>
                 </div>
             </div>
             {% endfor %}
         {% endif %}
     </div>
-    
 </body>
 </html>
